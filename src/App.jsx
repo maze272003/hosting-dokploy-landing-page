@@ -1,178 +1,190 @@
 import { useState } from 'react'
 
 const navLinks = [
-  { label: 'Features', href: '#why', dropdown: true },
-  { label: 'Pricing', href: '#value', dropdown: false },
-  { label: 'Solutions', href: '#workflow', dropdown: true },
-  { label: 'Docs', href: '#faq', dropdown: false },
-  { label: 'Resources', href: '#projects', dropdown: true },
+  { label: 'Features', href: '#features', dropdown: true },
+  { label: 'Workflow', href: '#workflow', dropdown: true },
+  { label: 'Best Shots', href: '#best-shots', dropdown: true },
+  { label: 'Use Cases', href: '#use-cases', dropdown: true },
 ]
 
 const metrics = [
   {
-    title: 'One shared control plane',
+    title: 'Applications or Compose',
     description:
-      'Deploy student websites, APIs, capstones, and internal tools from one self-hosted environment.',
+      'Launch a single app quickly or move into Docker Compose when the stack needs APIs, workers, queues, and supporting services together.',
   },
   {
-    title: 'Lower hosting overhead',
+    title: 'Databases Built In',
     description:
-      'Avoid paying for many disconnected student hosting accounts by standardizing on one platform.',
+      'Provision Postgres, MySQL, MariaDB, MongoDB, or Redis with backups, logs, persistence, and resource controls close to the app.',
   },
   {
-    title: 'Real CI/CD habits',
+    title: 'Source Flexibility',
     description:
-      'Give BSIT teams a cleaner release path that feels closer to actual production workflows.',
+      'Deploy from GitHub, GitLab, Bitbucket, Gitea, generic Git, Docker images, ZIP uploads, or raw Compose definitions.',
   },
   {
-    title: 'Presentation-ready releases',
+    title: 'Operate in One Place',
     description:
-      'Ship demos faster, revise after feedback, and keep projects easier to maintain after launch.',
+      'Manage domains, environment variables, live logs, container terminals, and service monitoring from one self-hosted control plane.',
   },
 ]
 
 const pillars = [
   {
-    label: 'Practical',
-    title: 'Self-hosted control without the clutter',
+    label: 'Application',
+    title: 'Fast path for single-service apps',
     description:
-      'Keep ownership of your apps, domains, environments, and release process while staying simple enough for student teams.',
+      'Dokploy applications can deploy from Git or Docker sources and support Docker, Nixpacks, Heroku Buildpacks, and Paketo Buildpacks for faster setup.',
   },
   {
-    label: 'Student-ready',
-    title: 'Built for PHINMA AU BSIT workflows',
+    label: 'Compose',
+    title: 'Real control for multi-service stacks',
     description:
-      'Students can focus on building features while the deployment path stays easier to understand and repeat.',
+      'Use Docker Compose when the project needs more than one container and keep service lifecycle, terminals, mounts, and environment management inside Dokploy.',
   },
   {
-    label: 'Efficient',
-    title: 'Low-cost infrastructure for many small projects',
+    label: 'Providers',
+    title: 'Use the source input that fits the team',
     description:
-      'Use one platform for prototypes, portfolios, thesis systems, and campus utilities without stacking subscriptions.',
+      'Dokploy supports major Git providers, generic Git repositories, Docker registries, ZIP uploads, and raw Compose input, so teams are not boxed into one flow.',
   },
   {
-    label: 'Consistent',
-    title: 'Standardize how projects go live',
+    label: 'Domains',
+    title: 'Handle domains, ports, redirects, and headers',
     description:
-      'A shared release pattern reduces manual deployment work and keeps project delivery more predictable.',
+      'Configure domains directly in the platform and tune routing details such as redirects, port settings, security headers, and Traefik-specific options.',
   },
   {
-    label: 'Scalable',
-    title: 'Grow from class demos to a project library',
+    label: 'Databases',
+    title: 'Run data services next to the app',
     description:
-      'The same setup can support new batches, new apps, and new maintainers with less onboarding friction.',
+      'Create and manage Postgres, MySQL, MariaDB, MongoDB, and Redis from the same interface, with backup controls, logs, volumes, and runtime limits.',
   },
   {
-    label: 'Showcase-ready',
-    title: 'Present student projects like real products',
+    label: 'Automation',
+    title: 'Let pushes and scripts trigger releases',
     description:
-      'A structured deployment platform makes BSIT outputs look more credible, usable, and ready for review.',
+      'Auto Deploy works with Git providers and webhooks, and the Dokploy API gives you a scriptable route for CI/CD pipelines and custom deployment triggers.',
   },
 ]
 
-const releaseLanes = [
+const deploymentModes = [
   {
-    name: 'Capstone Dashboard',
-    stack: 'React + API service',
-    status: 'Live demo ready',
+    name: 'Applications',
+    stack: 'Repo-based deployment with Docker, Nixpacks, or buildpacks',
+    status: 'Quick start',
   },
   {
-    name: 'Student Queueing App',
-    stack: 'Web app + database',
-    status: 'Review deployment',
+    name: 'Docker Compose',
+    stack: 'API, worker, queue, and supporting services in one definition',
+    status: 'Full stack',
   },
   {
-    name: 'Portfolio Hosting Lane',
-    stack: 'Static site + custom domain',
-    status: 'Fast launch setup',
+    name: 'Databases',
+    stack: 'Postgres, MySQL, MariaDB, MongoDB, Redis',
+    status: 'Backups ready',
   },
 ]
 
 const pipeline = [
   {
-    step: 'Push code',
-    detail: 'Student teams commit updates and prepare a clean release candidate.',
+    step: 'Choose source',
+    detail:
+      'Connect GitHub, GitLab, Bitbucket, Gitea, generic Git, Docker image sources, or raw Docker Compose depending on the project.',
   },
   {
-    step: 'Build app',
-    detail: 'Each project follows a container-ready or service-ready deployment path.',
+    step: 'Configure runtime',
+    detail:
+      'Set build type, environment variables, domains, ports, volumes, and resource limits before the release goes live.',
   },
   {
-    step: 'Review release',
-    detail: 'Logs, variables, and environment settings stay visible in one place.',
+    step: 'Trigger deploy',
+    detail:
+      'Deploy manually, on push with Auto Deploy, through a webhook, or programmatically with the Dokploy API.',
   },
   {
-    step: 'Go live',
-    detail: 'The latest version becomes easier to present, test, and improve.',
+    step: 'Operate live',
+    detail:
+      'Track deployment logs, open terminals, inspect queued releases, and watch CPU, memory, disk, and network usage per service.',
   },
 ]
 
 const workflow = [
   {
-    title: 'Prepare a reusable deployment pattern',
+    title: 'Choose the right deployment lane',
     description:
-      'Define how PHINMA AU BSIT teams structure repositories, environments, and release expectations so new projects start with less guesswork.',
+      'Start with an application when the app is straightforward, move to Docker Compose when the architecture gets multi-service, and attach a managed database when the stack needs durable data.',
   },
   {
-    title: 'Connect each project to the Dokploy release lane',
+    title: 'Wire in runtime details once',
     description:
-      'Map the app, runtime, domain, and environment variables once so future updates stay consistent.',
+      'Domains, environment variables, storage volumes, ports, commands, and limits live beside the service definition instead of being scattered across separate tools.',
   },
   {
-    title: 'Use CI/CD to drive releases',
+    title: 'Automate releases from the repo',
     description:
-      'Turn commits into clearer deployment actions instead of last-minute uploads, rushed edits, or manual server changes.',
+      'Enable Auto Deploy for Git-driven pushes, use webhooks where needed, or trigger releases via API from the CI system you already run.',
   },
   {
-    title: 'Maintain applications after presentation day',
+    title: 'Operate with visibility instead of guesswork',
     description:
-      'Keep a cleaner way to redeploy, revise, and improve projects after testing, critique, or faculty feedback.',
+      'Use live logs, service-level monitoring, build logs, queue management, and terminals to troubleshoot without losing the context of the running deployment.',
   },
 ]
 
 const useCases = [
   {
-    title: 'Portfolio websites',
-    text: 'Publish resumes, personal sites, and project showcases with a more credible deployment story.',
+    title: 'SaaS MVPs',
+    text: 'Ship a frontend, API, worker, and database without assembling a fragile chain of separate deployment products.',
   },
   {
-    title: 'Capstone and thesis systems',
-    text: 'Launch dashboards, portals, and management systems with cleaner release preparation before defense day.',
+    title: 'Internal dashboards',
+    text: 'Keep admin tools and business apps close to the infrastructure your team already controls.',
   },
   {
-    title: 'APIs and backend services',
-    text: 'Support projects that need environment variables, database services, and more disciplined deployment flow.',
+    title: 'Client websites and APIs',
+    text: 'Use one repeatable release surface for brochure sites, custom apps, and the backend services that support them.',
   },
   {
-    title: 'Campus internal tools',
-    text: 'Host request systems, forms, scheduling tools, and department utilities without overcomplicating infrastructure.',
+    title: 'Side projects and self-hosted tools',
+    text: 'Run personal products, experiments, and useful services on infrastructure you own without giving up observability and automation.',
   },
 ]
 
-const benefits = [
-  'Promotes a stronger CI/CD mindset across the BSIT program',
-  'Keeps hosting practical for teams working with limited budgets',
-  'Reduces manual deployment work before demos and evaluations',
-  'Creates a standard new student teams can adopt quickly',
-  'Makes live projects easier to update after launch',
-  'Raises the presentation value of PHINMA AU student output',
+const platformWins = [
+  'One UI for applications, Compose stacks, databases, domains, and deployment history.',
+  'A stronger Git-to-deploy story for small teams that still want self-hosted ownership.',
+  'Support for both simple launches and more serious Docker-based stacks.',
+  'Live logs, terminals, and per-service resource graphs reduce troubleshooting friction.',
+  'Backups for databases and volumes give self-hosted teams a safer operational baseline.',
+  'A better fit for teams that want Docker power without stitching every deployment step by hand.',
 ]
 
-const faqs = [
+const bestShots = [
   {
-    question: 'Why use self-hosted Dokploy instead of separate hosting accounts?',
-    answer:
-      'A shared self-hosted setup gives better cost control, keeps operations centralized, and makes it easier to apply one deployment standard across many student-built applications.',
+    badge: 'Sources',
+    title: 'It accepts the messy inputs real teams already have.',
+    description:
+      'Dokploy does not force every team into one repo pattern. Git providers, generic Git, Docker images, ZIP uploads, and raw Compose all remain valid ways to ship.',
   },
   {
-    question: 'Is this only useful for large production-grade systems?',
-    answer:
-      'No. Smaller student projects benefit a lot because the platform adds structure early. Even a simple capstone demo becomes easier to ship, revise, and present reliably.',
+    badge: 'Builds',
+    title: 'It supports more than one path from code to runtime.',
+    description:
+      'Applications can build with Docker, Nixpacks, Heroku Buildpacks, or Paketo Buildpacks, which makes Dokploy useful across different stacks and maturity levels.',
   },
   {
-    question: 'Why is this a good fit for PHINMA AU BSIT students?',
-    answer:
-      'The goal is not to overload teams with server complexity. The goal is to give them a practical path from coding to release so they learn modern delivery habits while staying focused on the app.',
+    badge: 'Ops',
+    title: 'It keeps operating context near the deployment itself.',
+    description:
+      'Logs, deployment history, service terminals, resource monitoring, domain settings, and environment variables stay attached to the service instead of disappearing into separate dashboards.',
+  },
+  {
+    badge: 'Data',
+    title: 'It treats persistence as part of the platform, not an afterthought.',
+    description:
+      'Database backups and volume backups make Dokploy more compelling for real applications than a simple app-only launcher.',
   },
 ]
 
@@ -219,19 +231,6 @@ function ArrowRight({ className = 'h-4 w-4' }) {
         strokeLinejoin="round"
         strokeWidth="1.5"
       />
-    </svg>
-  )
-}
-
-function GithubIcon({ className = 'h-4 w-4' }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path d="M12 .5C5.65.5.5 5.8.5 12.35c0 5.24 3.33 9.69 7.95 11.25.58.11.79-.26.79-.58 0-.29-.01-1.05-.02-2.06-3.23.72-3.91-1.6-3.91-1.6-.53-1.38-1.29-1.74-1.29-1.74-1.05-.74.08-.72.08-.72 1.17.09 1.78 1.24 1.78 1.24 1.03 1.83 2.71 1.3 3.37.99.1-.77.4-1.3.72-1.59-2.58-.3-5.29-1.33-5.29-5.92 0-1.31.46-2.39 1.2-3.23-.12-.3-.52-1.52.12-3.16 0 0 .98-.32 3.2 1.23a10.8 10.8 0 0 1 5.82 0c2.22-1.55 3.2-1.23 3.2-1.23.64 1.64.24 2.86.12 3.16.75.84 1.2 1.92 1.2 3.23 0 4.6-2.72 5.61-5.32 5.91.41.37.78 1.08.78 2.18 0 1.58-.01 2.85-.01 3.23 0 .32.21.7.8.58a11.9 11.9 0 0 0 7.94-11.25C23.5 5.8 18.35.5 12 .5Z" />
     </svg>
   )
 }
@@ -326,7 +325,7 @@ function SectionIntro({ badge, title, description, center = false }) {
 
 function App() {
   const [copied, setCopied] = useState(false)
-  const command = 'git push origin main && dokploy deploy phinma-au'
+  const command = 'git push origin main'
 
   async function handleCopy() {
     try {
@@ -344,7 +343,7 @@ function App() {
         <div className="mx-auto flex max-w-[1320px] items-center gap-6 px-6 py-4">
           <a
             href="#hero"
-            aria-label="PHINMA AU Dokploy home"
+            aria-label="Dokploy home"
             className="shrink-0 text-white transition hover:opacity-80"
           >
             <DokployGlyph className="h-10 w-10 sm:h-11 sm:w-11" />
@@ -368,18 +367,17 @@ function App() {
 
           <div className="ml-auto hidden items-center gap-3 md:flex">
             <a
-              href="#why"
+              href="#best-shots"
               className="inline-flex items-center gap-2 rounded-full bg-[#ffd84d] px-4 py-2 text-sm font-semibold text-black transition hover:brightness-95"
             >
-              <GithubIcon className="h-4 w-4" />
-              <span>Stars 31.8k</span>
+              <span>Best Shots</span>
             </a>
             <span className="text-lg text-zinc-500">X</span>
             <a
-              href="#cta"
+              href="#use-cases"
               className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-sm font-medium text-white transition hover:bg-white/[0.08]"
             >
-              Contact
+              Use Cases
             </a>
             <a
               href="https://dokploy.com"
@@ -387,16 +385,16 @@ function App() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-zinc-200"
             >
-              <span>Sign In</span>
+              <span>Visit Dokploy</span>
               <ArrowRight className="h-4 w-4" />
             </a>
           </div>
 
           <a
-            href="#cta"
+            href="#features"
             className="ml-auto inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-200 md:hidden"
           >
-            <span>Launch</span>
+            <span>Features</span>
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>
@@ -438,13 +436,13 @@ function App() {
           <div className="relative mx-auto max-w-[1320px] px-6 pb-20 pt-16 sm:pt-20 lg:pb-28 lg:pt-24">
             <div className="mx-auto max-w-5xl text-center">
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-zinc-300">
-                Self-hosted for PHINMA AU BSIT
+                Self-hosted deployment platform
               </span>
 
-              <h1 className="font-display mt-8 text-5xl font-semibold tracking-[-0.06em] text-white sm:text-6xl lg:text-[6.4rem] lg:leading-[0.92]">
-                <span className="block text-zinc-500">Simplify</span>
+              <h1 className="font-display mt-8 text-5xl font-semibold tracking-[-0.06em] text-white sm:text-6xl lg:text-[6.1rem] lg:leading-[0.92]">
+                <span className="block text-zinc-500">Deploy apps, databases,</span>
                 <span className="relative block text-white">
-                  Student App and Database
+                  and Docker Compose stacks
                   <svg
                     aria-hidden="true"
                     className="pointer-events-none absolute -bottom-5 left-1/2 hidden h-10 w-[86%] -translate-x-1/2 text-white/95 md:block"
@@ -459,14 +457,13 @@ function App() {
                     />
                   </svg>
                 </span>
-                <span className="block text-zinc-300">Deployments</span>
+                <span className="block text-zinc-300">without platform sprawl</span>
               </h1>
 
               <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg">
-                Manage PHINMA AU student deployments across portfolios,
-                capstones, dashboards, and internal tools with a low-cost
-                Dokploy setup that pushes BSIT teams toward cleaner CI/CD
-                practice.
+                Dokploy brings application deployments, Compose workloads,
+                databases, domains, environment variables, logs, monitoring,
+                and automated release triggers into one self-hosted surface.
               </p>
 
               <div className="mx-auto mt-10 flex max-w-3xl flex-col items-stretch gap-3 rounded-[24px] border border-white/10 bg-black/50 p-3 shadow-[0_28px_90px_rgba(0,0,0,0.42)] backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-4">
@@ -483,18 +480,22 @@ function App() {
                 </button>
               </div>
 
+              <p className="mt-3 text-sm text-zinc-500">
+                Example Git push for repositories using Dokploy Auto Deploy.
+              </p>
+
               <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
                 <a
-                  href="#workflow"
+                  href="#features"
                   className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 sm:text-base"
                 >
-                  <span>Explore Workflow</span>
+                  <span>Explore Features</span>
                 </a>
                 <a
-                  href="#cta"
+                  href="#workflow"
                   className="inline-flex items-center gap-2 rounded-full bg-[#6366f1] px-7 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(79,85,218,0.34)] transition hover:bg-[#7277ff] sm:text-base"
                 >
-                  <span>Start the Rollout</span>
+                  <span>See the Workflow</span>
                 </a>
               </div>
             </div>
@@ -504,19 +505,19 @@ function App() {
                 <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                   <div className="max-w-2xl">
                     <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400">
-                      Student release lane
+                      Deployment lanes
                     </p>
                     <h2 className="font-display mt-4 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-                      Deploy projects from one campus-ready Dokploy workspace.
+                      Three core surfaces cover most of what teams need to run.
                     </h2>
                   </div>
                   <span className="inline-flex w-fit items-center rounded-full bg-[#ffd84d] px-4 py-2 text-sm font-semibold text-black">
-                    Live setup
+                    Feature snapshot
                   </span>
                 </div>
 
                 <div className="mt-6 grid gap-3">
-                  {releaseLanes.map((project) => (
+                  {deploymentModes.map((project) => (
                     <article
                       key={project.name}
                       className="flex flex-col gap-3 rounded-[22px] border border-white/8 bg-white/[0.03] p-4 sm:flex-row sm:items-center sm:justify-between"
@@ -538,13 +539,13 @@ function App() {
 
                 <div className="mt-6 flex flex-wrap gap-2 text-sm text-zinc-300">
                   <span className="rounded-full border border-white/8 bg-white/[0.03] px-3 py-2">
-                    Low-cost shared infrastructure
+                    Git-driven releases
                   </span>
                   <span className="rounded-full border border-white/8 bg-white/[0.03] px-3 py-2">
-                    Faster demos and revisions
+                    Domain and env management
                   </span>
                   <span className="rounded-full border border-white/8 bg-white/[0.03] px-3 py-2">
-                    Easier onboarding for new batches
+                    Logs, terminals, monitoring
                   </span>
                 </div>
               </div>
@@ -552,7 +553,7 @@ function App() {
               <div className="grid gap-6">
                 <div className={`${panelClass} p-6 sm:p-7`}>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400">
-                    CI/CD path
+                    Release path
                   </p>
                   <div className="mt-5 grid gap-3">
                     {pipeline.map((item) => (
@@ -573,16 +574,15 @@ function App() {
 
                 <aside className="rounded-[30px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(109,115,255,0.16),transparent_32%),linear-gradient(180deg,rgba(15,18,30,0.96),rgba(6,7,11,0.98))] p-6 shadow-[0_28px_90px_rgba(0,0,0,0.42)] sm:p-7">
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-zinc-400">
-                    What this platform communicates
+                    Why it stands out
                   </p>
                   <p className="font-display mt-5 text-2xl font-semibold leading-tight tracking-[-0.04em] text-white sm:text-[2rem]">
-                    Student projects are not just outputs. They are deployable
-                    products with real workflows and real release discipline.
+                    Dokploy is strongest when a team wants Docker-level control
+                    without spreading deployment work across five separate tools.
                   </p>
                   <p className="mt-4 text-base leading-8 text-zinc-400">
-                    Use it for portfolios, capstones, incubated ideas, and
-                    department tools that deserve a more professional delivery
-                    path.
+                    It keeps the release story, the runtime story, and the
+                    operations story connected in one place.
                   </p>
                 </aside>
               </div>
@@ -603,12 +603,12 @@ function App() {
           ))}
         </section>
 
-        <section id="why" className="mx-auto mt-8 max-w-[1320px] px-6">
+        <section id="features" className="mx-auto mt-8 max-w-[1320px] px-6">
           <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
             <SectionIntro
-              badge="Why Dokploy"
-              title="Use one deployment standard instead of reinventing setup for every team."
-              description="PHINMA AU BSIT students can focus more on building applications while the release flow stays clearer: prepare the project, connect it, deploy it, and keep updates manageable from one shared platform."
+              badge="Core Features"
+              title="The best Dokploy pages should sell control, flexibility, and operational clarity."
+              description="This version focuses on the product features people actually evaluate: deployment models, source options, domains, data services, automation, and visibility after the app goes live."
             />
 
             <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -635,9 +635,9 @@ function App() {
         <section id="workflow" className="mx-auto mt-8 max-w-[1320px] px-6">
           <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
             <SectionIntro
-              badge="Release Workflow"
-              title="A CI/CD path that stays understandable for student teams."
-              description="Good deployment habits still matter for student work. This structure stays clear enough for first-time deployers and strong enough to support serious project teams."
+              badge="Workflow"
+              title="The release flow now explains how Dokploy works from source to operations."
+              description="The page now shows the practical path teams follow inside Dokploy: choose the lane, configure runtime details, automate the trigger, and operate with context."
               center
             />
 
@@ -662,13 +662,13 @@ function App() {
           </div>
         </section>
 
-        <section id="projects" className="mx-auto mt-8 max-w-[1320px] px-6">
+        <section id="use-cases" className="mx-auto mt-8 max-w-[1320px] px-6">
           <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
             <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
               <SectionIntro
-                badge="Best-fit Projects"
-                title="Built for the applications BSIT students actually ship."
-                description="Promote Dokploy hosting as the practical home for class projects, thesis systems, startup experiments, and useful campus tools."
+                badge="Use Cases"
+                title="Dokploy fits the teams that want a real deployment platform without renting away control."
+                description="These are the kinds of projects the page now highlights most clearly for teams evaluating whether Dokploy fits their stack."
               />
 
               <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -688,15 +688,15 @@ function App() {
               </div>
             </div>
 
-            <div id="value" className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
+            <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
               <SectionIntro
-                badge="Low-Cost Value"
-                title="Use Dokploy hosting as the bridge between student development and real deployment practice."
-                description="Instead of paying for isolated hosting plans or relying on fragile manual releases, PHINMA AU can keep a cleaner and more efficient platform for student innovation."
+                badge="Platform Wins"
+                title="Why teams keep landing on Dokploy."
+                description="The strongest arguments are now about capability, ownership, and day-two operations."
               />
 
               <ul className="mt-8 grid gap-4">
-                {benefits.map((item) => (
+                {platformWins.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-3 rounded-[22px] border border-white/10 bg-white/[0.03] px-4 py-4 text-sm leading-7 text-zinc-300 sm:text-base"
@@ -712,28 +712,30 @@ function App() {
           </div>
         </section>
 
-        <section id="faq" className="mx-auto mt-8 max-w-[1320px] px-6">
+        <section id="best-shots" className="mx-auto mt-8 max-w-[1320px] px-6">
           <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
             <SectionIntro
-              badge="Common Questions"
-              title="Promotional pages should answer the practical concerns fast."
-              description="These points reinforce why a self-hosted Dokploy deployment lane works well for PHINMA AU and its student developer community."
+              badge="Best Shots"
+              title="These are the Dokploy strengths worth putting front and center."
+              description="This section focuses on the product angles that actually matter when someone is deciding whether Dokploy is serious enough for their stack."
             />
 
-            <div className="mt-8 grid gap-4 lg:grid-cols-3">
-              {faqs.map((item, index) => (
-                <details
-                  key={item.question}
-                  open={index === 0}
+            <div className="mt-8 grid gap-4 lg:grid-cols-2">
+              {bestShots.map((item) => (
+                <article
+                  key={item.title}
                   className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
                 >
-                  <summary className="cursor-pointer list-none font-display text-xl font-semibold tracking-[-0.03em] text-white [&::-webkit-details-marker]:hidden">
-                    {item.question}
-                  </summary>
+                  <span className="inline-flex rounded-full bg-[#ffd84d] px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-black">
+                    {item.badge}
+                  </span>
+                  <h3 className="font-display mt-4 text-2xl font-semibold tracking-[-0.04em] text-white">
+                    {item.title}
+                  </h3>
                   <p className="mt-4 text-sm leading-7 text-zinc-400 sm:text-base">
-                    {item.answer}
+                    {item.description}
                   </p>
-                </details>
+                </article>
               ))}
             </div>
           </div>
@@ -744,16 +746,15 @@ function App() {
             <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] xl:items-center">
               <div className="max-w-3xl">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-zinc-300">
-                  Ready to launch
+                  Final section
                 </span>
                 <h2 className="font-display mt-5 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
-                  Make PHINMA AU BSIT projects easier to deploy, easier to
-                  present, and easier to maintain.
+                  The page now sells Dokploy as a serious deployment surface.
                 </h2>
                 <p className="mt-4 text-base leading-8 text-zinc-400 sm:text-lg">
-                  This landing page should sell more than hosting. It should
-                  sell a smarter release workflow for student-built
-                  applications.
+                  It is positioned around what Dokploy genuinely does well:
+                  applications, Compose stacks, databases, automation, and
+                  operations in one self-hosted platform.
                 </p>
               </div>
 
@@ -765,10 +766,10 @@ function App() {
                   <span>Back to top</span>
                 </a>
                 <a
-                  href="#projects"
+                  href="#best-shots"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#6366f1] px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(79,85,218,0.34)] transition hover:bg-[#7277ff] sm:text-base"
                 >
-                  <span>Explore use cases</span>
+                  <span>Review highlights</span>
                 </a>
               </div>
             </div>
@@ -777,8 +778,8 @@ function App() {
       </main>
 
       <footer className="mx-auto flex max-w-[1320px] flex-col gap-3 px-6 pb-8 pt-6 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
-        <p>PHINMA AU Dokploy landing page concept</p>
-        <p>Self-hosted CI/CD workflow for student-built applications</p>
+        <p>Dokploy feature landing page concept</p>
+        <p>Focused on applications, Compose stacks, databases, and release automation</p>
       </footer>
     </div>
   )
