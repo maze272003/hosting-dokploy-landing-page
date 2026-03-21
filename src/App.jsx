@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom'
 import BoxIcon from './components/BoxIcon'
 import HomePage from './pages/HomePage'
@@ -24,6 +25,30 @@ function ChevronDown({ className = 'h-3 w-3' }) {
 
 function ArrowRight({ className = 'h-4 w-4' }) {
   return <BoxIcon iconClass="bx bx-right-arrow-alt" className={`text-[18px] ${className}`} />
+}
+
+function MenuToggleIcon({ isOpen, className = 'h-5 w-5' }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      {isOpen ? (
+        <>
+          <path d="M6 6L18 18" stroke="currentColor" strokeLinecap="round" strokeWidth="2.2" />
+          <path d="M18 6L6 18" stroke="currentColor" strokeLinecap="round" strokeWidth="2.2" />
+        </>
+      ) : (
+        <>
+          <path d="M4 7H20" stroke="currentColor" strokeLinecap="round" strokeWidth="2.2" />
+          <path d="M4 12H20" stroke="currentColor" strokeLinecap="round" strokeWidth="2.2" />
+          <path d="M4 17H15" stroke="currentColor" strokeLinecap="round" strokeWidth="2.2" />
+        </>
+      )}
+    </svg>
+  )
 }
 
 function DokployGlyph({ className = 'h-10 w-10' }) {
@@ -71,93 +96,59 @@ function DokployGlyph({ className = 'h-10 w-10' }) {
 
 function Header() {
   const location = useLocation()
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
+
+  useEffect(() => {
+    if (!isMobileNavOpen) {
+      return undefined
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsMobileNavOpen(false)
+      }
+    }
+
+    const originalOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = originalOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isMobileNavOpen])
+
+  const getNavClassName = (href) => {
+    const isActive = href.startsWith('/') && location.pathname === href
+
+    return isActive
+      ? 'text-white'
+      : 'text-zinc-200 transition hover:text-white'
+  }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/85 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1320px] items-center gap-6 px-6 py-4">
-        <Link
-          to="/"
-          aria-label="Dokploy home"
-          className="shrink-0 text-white transition hover:opacity-80"
-        >
-          <DokployGlyph className="h-10 w-10 sm:h-11 sm:w-11" />
-        </Link>
-
-        <nav
-          aria-label="Primary navigation"
-          className="hidden items-center gap-8 text-[15px] font-medium text-zinc-200 lg:flex"
-        >
-          {navLinks.map((item) => (
-            item.href.startsWith('/') ? (
-              <Link
-                key={item.label}
-                to={item.href}
-                className="inline-flex items-center gap-1.5 transition hover:text-white"
-              >
-                <span>{item.label}</span>
-                {item.dropdown ? <ChevronDown /> : null}
-              </Link>
-            ) : (
-              <a
-                key={item.label}
-                href={item.href}
-                className="inline-flex items-center gap-1.5 transition hover:text-white"
-              >
-                <span>{item.label}</span>
-                {item.dropdown ? <ChevronDown /> : null}
-              </a>
-            )
-          ))}
-        </nav>
-
-        <div className="ml-auto hidden items-center gap-3 md:flex">
-          <a
-            href="#best-shots"
-            className="inline-flex items-center gap-2 rounded-full bg-[#ffd84d] px-4 py-2 text-sm font-semibold text-black transition hover:brightness-95"
+    <>
+      <header className="sticky top-0 z-50 isolate border-b border-white/10 bg-black/85 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-[1320px] items-center gap-3 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
+          <Link
+            to="/"
+            aria-label="Dokploy home"
+            className="shrink-0 text-white transition hover:opacity-80"
           >
-            <span>Best Shots</span>
-          </a>
-          <span className="text-lg text-zinc-500">X</span>
-          <a
-            href="#use-cases"
-            className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-sm font-medium text-white transition hover:bg-white/[0.08]"
-          >
-            Use Cases
-          </a>
-          <a
-            href="https://dokploy.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-zinc-200"
-          >
-            <span>Visit Dokploy</span>
-            <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
+            <DokployGlyph className="h-10 w-10 animate-float-slow sm:h-11 sm:w-11" />
+          </Link>
 
-        {location.pathname === '/' && (
-          <a
-            href="#features"
-            className="ml-auto inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-black transition hover:bg-zinc-200 md:hidden"
-          >
-            <span>Features</span>
-            <ArrowRight className="h-4 w-4" />
-          </a>
-        )}
-      </div>
-
-      <div className="border-t border-white/5 lg:hidden">
-        <div className="mx-auto max-w-[1320px] overflow-x-auto px-6 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <nav
-            aria-label="Mobile navigation"
-            className="flex min-w-max items-center gap-6 text-sm font-medium text-zinc-300"
+            aria-label="Primary navigation"
+            className="hidden items-center gap-8 text-[15px] font-medium lg:flex"
           >
             {navLinks.map((item) => (
               item.href.startsWith('/') ? (
                 <Link
                   key={item.label}
                   to={item.href}
-                  className="inline-flex items-center gap-1.5 transition hover:text-white"
+                  className={`inline-flex items-center gap-1.5 ${getNavClassName(item.href)}`}
                 >
                   <span>{item.label}</span>
                   {item.dropdown ? <ChevronDown /> : null}
@@ -166,7 +157,7 @@ function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="inline-flex items-center gap-1.5 transition hover:text-white"
+                  className={`inline-flex items-center gap-1.5 ${getNavClassName(item.href)}`}
                 >
                   <span>{item.label}</span>
                   {item.dropdown ? <ChevronDown /> : null}
@@ -174,26 +165,169 @@ function Header() {
               )
             ))}
           </nav>
+
+          <div className="ml-auto hidden items-center gap-3 xl:flex">
+            <a
+              href="#best-shots"
+              className="inline-flex items-center gap-2 rounded-full bg-[#ffd84d] px-4 py-2 text-sm font-semibold text-black transition hover:brightness-95 lift-hover animate-sheen"
+            >
+              <span>Best Shots</span>
+            </a>
+            <span className="text-lg text-zinc-500">X</span>
+            <a
+              href="#use-cases"
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-sm font-medium text-white transition hover:bg-white/[0.08] lift-hover"
+            >
+              Use Cases
+            </a>
+            <a
+              href="https://dokploy.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-zinc-200 lift-hover animate-sheen"
+            >
+              <span>Visit Dokploy</span>
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+
+          <button
+            type="button"
+            aria-expanded={isMobileNavOpen}
+            aria-controls="mobile-sidebar"
+            aria-label={isMobileNavOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            onClick={() => setIsMobileNavOpen((value) => !value)}
+            className="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white transition hover:bg-white/[0.08] lg:hidden"
+          >
+            <MenuToggleIcon isOpen={isMobileNavOpen} className="h-5 w-5" />
+          </button>
         </div>
+      </header>
+
+      <div
+        className={`fixed inset-0 z-[60] lg:hidden ${
+          isMobileNavOpen ? 'pointer-events-auto' : 'pointer-events-none'
+        }`}
+      >
+        <button
+          type="button"
+          aria-label="Close navigation overlay"
+          onClick={() => setIsMobileNavOpen(false)}
+          className={`absolute inset-0 bg-black/72 backdrop-blur-sm transition-opacity duration-300 ${
+            isMobileNavOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+
+        <aside
+          id="mobile-sidebar"
+          className={`absolute right-0 top-0 flex h-full w-[min(88vw,360px)] flex-col border-l border-white/10 bg-[linear-gradient(180deg,rgba(12,13,19,0.98),rgba(6,7,11,0.98))] p-5 shadow-[-20px_0_70px_rgba(0,0,0,0.45)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            isMobileNavOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <Link
+              to="/"
+              onClick={() => setIsMobileNavOpen(false)}
+              className="inline-flex items-center gap-3 text-white"
+            >
+              <DokployGlyph className="h-9 w-9" />
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-500">
+                  Navigate
+                </p>
+                <p className="text-sm font-semibold text-zinc-100">Dokploy Pages</p>
+              </div>
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setIsMobileNavOpen(false)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-white transition hover:bg-white/[0.08]"
+            >
+              <MenuToggleIcon isOpen className="h-5 w-5" />
+            </button>
+          </div>
+
+          <nav
+            aria-label="Sidebar navigation"
+            className="stagger-fade mt-8 flex flex-col gap-3"
+          >
+            {navLinks.map((item) => {
+              const isActive = item.href.startsWith('/') && location.pathname === item.href
+              const itemClassName = isActive
+                ? 'border-white/0 bg-white text-black shadow-[0_16px_40px_rgba(255,255,255,0.14)]'
+                : 'border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.08]'
+
+              return item.href.startsWith('/') ? (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className={`lift-hover inline-flex items-center justify-between rounded-[22px] border px-4 py-3 text-sm font-medium transition ${itemClassName}`}
+                >
+                  <span>{item.label}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className={`lift-hover inline-flex items-center justify-between rounded-[22px] border px-4 py-3 text-sm font-medium transition ${itemClassName}`}
+                >
+                  <span>{item.label}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              )
+            })}
+          </nav>
+
+          <div className="mt-auto space-y-3 pt-8">
+            {location.pathname === '/' ? (
+              <a
+                href="#features"
+                onClick={() => setIsMobileNavOpen(false)}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#ffd84d] px-5 py-3 text-sm font-semibold text-black transition hover:brightness-95 lift-hover animate-sheen"
+              >
+                <span>Jump to Features</span>
+              </a>
+            ) : null}
+
+            <a
+              href="https://dokploy.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMobileNavOpen(false)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/10 bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 lift-hover animate-sheen"
+            >
+              <span>Visit Dokploy</span>
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        </aside>
       </div>
-    </header>
+    </>
   )
 }
 
 function AppContent() {
+  const location = useLocation()
+
   return (
     <div className="relative min-h-screen overflow-x-hidden text-white">
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/docs" element={<DocumentationPage />} />
-        <Route path="/getting-started" element={<GettingStartedPage />} />
-        <Route path="/best-practices" element={<BestPracticesPage />} />
-        <Route path="/troubleshooting" element={<TroubleshootingPage />} />
-        <Route path="/api" element={<APIReferencePage />} />
-        <Route path="/videos" element={<VideoGridPage />} />
-      </Routes>
-      <footer className="mx-auto flex max-w-[1320px] flex-col gap-3 px-6 pb-8 pt-6 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
+      <div className="page-shell">
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/docs" element={<DocumentationPage />} />
+          <Route path="/getting-started" element={<GettingStartedPage />} />
+          <Route path="/best-practices" element={<BestPracticesPage />} />
+          <Route path="/troubleshooting" element={<TroubleshootingPage />} />
+          <Route path="/api" element={<APIReferencePage />} />
+          <Route path="/videos" element={<VideoGridPage />} />
+        </Routes>
+      </div>
+      <footer className="mx-auto flex max-w-[1320px] flex-col gap-3 px-4 pb-8 pt-6 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 animate-fade-soft">
         <p>Dokploy feature landing page concept</p>
         <p>Focused on applications, Compose stacks, databases, and release automation</p>
       </footer>

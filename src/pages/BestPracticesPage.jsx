@@ -7,7 +7,7 @@ export default function BestPracticesPage() {
   const panelClass =
     'rounded-[30px] border border-white/10 panel-dark shadow-[0_28px_90px_rgba(0,0,0,0.42)]'
   const navButtonClass = (isActive) =>
-    `whitespace-nowrap flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition ${
+    `whitespace-nowrap flex items-center gap-2 rounded-full px-3 py-2 text-xs font-medium transition sm:px-4 sm:py-2.5 sm:text-sm ${
       isActive
         ? 'bg-white text-black shadow-[0_12px_40px_rgba(255,255,255,0.12)]'
         : 'border border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
@@ -276,12 +276,12 @@ export default function BestPracticesPage() {
       <div className="space-y-8">
         {practices.map((practice) => (
           <div key={practice.practice} className={`${panelClass} overflow-hidden`}>
-            <div className="border-b border-white/10 bg-white/[0.03] px-6 py-4">
-              <h3 className="text-xl font-semibold text-white">{practice.practice}</h3>
+            <div className="border-b border-white/10 bg-white/[0.03] px-4 py-4 sm:px-6">
+              <h3 className="text-lg font-semibold text-white sm:text-xl">{practice.practice}</h3>
               <p className="mt-1 text-zinc-400">{practice.description}</p>
             </div>
 
-            <div className="space-y-4 px-6 py-4">
+            <div className="space-y-4 px-4 py-4 sm:px-6">
               <div>
                 <h4 className="mb-2 font-semibold text-zinc-100">Implementation</h4>
                 <p className="text-zinc-400">{practice.implementation}</p>
@@ -292,7 +292,7 @@ export default function BestPracticesPage() {
                 <p className="text-zinc-400">{practice.benefits}</p>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="font-semibold text-zinc-200">Complexity:</span>
                 <span
                   className={`rounded-full border px-3 py-1 text-xs font-bold ${
@@ -314,23 +314,23 @@ export default function BestPracticesPage() {
   }
 
   return (
-    <div className="min-h-screen pb-16 text-zinc-100">
-      <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-12">
+    <div className="min-h-screen pb-12 text-zinc-100 sm:pb-16">
+      <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-10 sm:px-6 sm:py-12">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top,rgba(255,216,77,0.16),transparent_42%)]" />
         <div className="relative mx-auto max-w-7xl">
-          <h1 className="font-display mb-2 text-4xl font-semibold tracking-[-0.04em] text-white">
+          <h1 className="font-display mb-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
             Best Practices
           </h1>
-          <p className="text-lg text-zinc-400">
+          <p className="text-base text-zinc-400 sm:text-lg">
             Proven strategies for deployment, security, performance, and operations.
           </p>
         </div>
       </div>
 
       <div className="sticky top-0 z-40 border-b border-white/10 bg-black/75 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="overflow-x-auto">
-            <div className="flex gap-2 py-4">
+            <div className="flex gap-2 py-3 sm:py-4">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
@@ -346,7 +346,7 @@ export default function BestPracticesPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-12">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         {renderContent()}
       </div>
     </div>

@@ -12,7 +12,7 @@ export default function APIReferencePage() {
   const codeBlockClass =
     'overflow-x-auto rounded-[20px] border border-white/10 bg-black/60 p-4 font-mono text-sm text-emerald-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
   const navButtonClass = (isActive) =>
-    `whitespace-nowrap flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition ${
+    `whitespace-nowrap flex items-center gap-2 rounded-full px-3 py-2 text-xs font-medium transition sm:px-4 sm:py-2.5 sm:text-sm ${
       isActive
         ? 'bg-white text-black shadow-[0_12px_40px_rgba(255,255,255,0.12)]'
         : 'border border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
@@ -422,23 +422,23 @@ export default function APIReferencePage() {
   }
 
   return (
-    <div className="min-h-screen pb-16 text-zinc-100">
-      <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-12">
+    <div className="min-h-screen pb-12 text-zinc-100 sm:pb-16">
+      <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-10 sm:px-6 sm:py-12">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top,rgba(167,139,250,0.18),transparent_42%)]" />
         <div className="relative mx-auto max-w-7xl">
-          <h1 className="font-display mb-2 text-4xl font-semibold tracking-[-0.04em] text-white">
+          <h1 className="font-display mb-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
             API Reference
           </h1>
-          <p className="text-lg text-zinc-400">
+          <p className="text-base text-zinc-400 sm:text-lg">
             Complete REST API documentation for Dokploy.
           </p>
         </div>
       </div>
 
       <div className="sticky top-0 z-40 border-b border-white/10 bg-black/75 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="overflow-x-auto">
-            <div className="flex gap-2 py-4">
+            <div className="flex gap-2 py-3 sm:py-4">
               {resources.map((resource) => (
                 <button
                   key={resource.id}
@@ -454,7 +454,7 @@ export default function APIReferencePage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-12">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         {renderContent()}
       </div>
     </div>

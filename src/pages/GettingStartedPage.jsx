@@ -63,6 +63,21 @@ const deploymentPaths = [
   },
 ]
 
+const serverRegionLinks = [
+  {
+    label: 'Europe Server',
+    href: 'https://dokploy.hostcluster.site',
+    description: 'Use this endpoint for Europe-based deployments. Replace it with your live Europe server URL.',
+    iconClass: 'bx bx-globe-alt',
+  },
+  {
+    label: 'Asia Server',
+    href: 'https://doki.springbullbars.shop',
+    description: 'Use this endpoint for Asia-based deployments. Replace it with your live Asia server URL.',
+    iconClass: 'bx bx-globe',
+  },
+]
+
 const launchChecklist = [
   {
     title: 'Server access',
@@ -133,7 +148,7 @@ export default function GettingStartedPage() {
   const codeBlockClass =
     'overflow-x-auto rounded-[20px] border border-white/10 bg-black/60 p-4 font-mono text-sm text-emerald-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
   const navButtonClass = (isActive) =>
-    `whitespace-nowrap flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition ${
+    `whitespace-nowrap flex items-center gap-2 rounded-full px-3 py-2 text-xs font-medium transition sm:px-4 sm:py-2.5 sm:text-sm ${
       isActive
         ? 'bg-white text-black shadow-[0_12px_40px_rgba(255,255,255,0.12)]'
         : 'border border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
@@ -144,11 +159,11 @@ export default function GettingStartedPage() {
       case 'quick-start':
         return (
           <div className="space-y-8">
-            <section className={`${panelClass} p-8`}>
-              <h2 className="font-display mb-4 text-3xl font-semibold tracking-[-0.04em] text-white">
+            <section className={`${panelClass} p-6 sm:p-8`}>
+              <h2 className="font-display mb-4 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-3xl">
                 First deploy flow
               </h2>
-              <p className="mb-6 text-lg text-zinc-400">
+              <p className="mb-6 text-base text-zinc-400 sm:text-lg">
                 The fastest path is to keep the first release small: one reachable host, one clear source,
                 correct runtime configuration, and enough visibility to see what broke if it goes sideways.
               </p>
@@ -199,6 +214,10 @@ export default function GettingStartedPage() {
               columns={['Name', 'Description', 'Best For', 'Build Flow']}
               data={deploymentPaths}
               iconClass="bx bx-git-branch"
+              ctaLabel="Get Started"
+              modalTitle="Choose your nearest server"
+              modalDescription="Pick the region that matches your deployment. The current Europe and Asia URLs are placeholders until you replace them with your actual server links."
+              modalLinks={serverRegionLinks}
             />
           </div>
         )
@@ -206,8 +225,8 @@ export default function GettingStartedPage() {
       case 'checklist':
         return (
           <div className="space-y-8">
-            <section className={`${panelClass} p-8`}>
-              <h2 className="mb-4 text-2xl font-semibold text-white">Launch with the boring details handled first</h2>
+            <section className={`${panelClass} p-6 sm:p-8`}>
+              <h2 className="mb-4 text-xl font-semibold text-white sm:text-2xl">Launch with the boring details handled first</h2>
               <p className="text-zinc-400">
                 Most first-release problems are not framework bugs. They come from missing DNS, missing secrets,
                 wrong ports, or no rollback plan.
@@ -234,13 +253,13 @@ export default function GettingStartedPage() {
           <div className="grid gap-6">
             {commonFixes.map((item) => (
               <article key={item.title} className={`${panelClass} overflow-hidden`}>
-                <div className="border-b border-white/10 bg-[linear-gradient(90deg,rgba(109,115,255,0.12),rgba(255,255,255,0.03))] px-6 py-4">
-                  <h3 className="flex items-center gap-3 text-xl font-semibold text-white">
+                <div className="border-b border-white/10 bg-[linear-gradient(90deg,rgba(109,115,255,0.12),rgba(255,255,255,0.03))] px-4 py-4 sm:px-6">
+                  <h3 className="flex items-start gap-3 text-lg font-semibold text-white sm:items-center sm:text-xl">
                     <BoxIcon iconClass={item.iconClass} className="text-2xl text-[#d7daff]" />
                     <span>{item.title}</span>
                   </h3>
                 </div>
-                <div className="space-y-4 px-6 py-5">
+                <div className="space-y-4 px-4 py-5 sm:px-6">
                   <div>
                     <h4 className="mb-2 font-semibold text-zinc-100">What usually causes it</h4>
                     <p className="text-zinc-400">{item.description}</p>
@@ -261,23 +280,23 @@ export default function GettingStartedPage() {
   }
 
   return (
-    <div className="min-h-screen pb-16 text-zinc-100">
-      <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-12">
+    <div className="min-h-screen pb-12 text-zinc-100 sm:pb-16">
+      <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-10 sm:px-6 sm:py-12">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top,rgba(255,216,77,0.16),transparent_42%)]" />
         <div className="relative mx-auto max-w-7xl">
-          <h1 className="font-display mb-2 text-4xl font-semibold tracking-[-0.04em] text-white">
+          <h1 className="font-display mb-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
             Getting Started
           </h1>
-          <p className="text-lg text-zinc-400">
+          <p className="text-base text-zinc-400 sm:text-lg">
             Set up Dokploy, choose the right deployment path, and avoid the first-release mistakes that waste time.
           </p>
         </div>
       </div>
 
       <div className="sticky top-0 z-40 border-b border-white/10 bg-black/75 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="overflow-x-auto">
-            <div className="flex gap-2 py-4">
+            <div className="flex gap-2 py-3 sm:py-4">
               {sections.map((section) => (
                 <button
                   key={section.id}
@@ -293,7 +312,7 @@ export default function GettingStartedPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-12">{renderContent()}</div>
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">{renderContent()}</div>
     </div>
   )
 }

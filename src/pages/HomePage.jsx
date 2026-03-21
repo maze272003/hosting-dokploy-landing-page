@@ -237,7 +237,7 @@ function SectionIntro({ badge, title, description, center = false }) {
   const alignment = center ? 'mx-auto max-w-4xl text-center' : 'max-w-3xl'
 
   return (
-    <div className={alignment}>
+    <div className={`${alignment} animate-rise`}>
       <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-zinc-300">
         {badge}
       </span>
@@ -266,7 +266,7 @@ export default function HomePage() {
   }
 
   return (
-    <main className="pb-20">
+    <main className="pb-16 sm:pb-20">
       <section
         id="hero"
         className="relative overflow-hidden border-b border-white/6"
@@ -274,18 +274,18 @@ export default function HomePage() {
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-grid-dokploy opacity-50" />
           <div className="absolute inset-x-0 top-0 h-[540px] bg-[radial-gradient(circle_at_top,rgba(109,115,255,0.12),transparent_48%)]" />
-          <div className="absolute left-[14%] top-[18%] hidden h-14 w-14 rotate-12 bg-white/[0.03] lg:block" />
-          <div className="absolute right-[18%] top-[28%] hidden h-20 w-20 -rotate-6 bg-white/[0.03] lg:block" />
-          <div className="absolute bottom-[18%] left-[22%] hidden h-12 w-12 rotate-12 bg-white/[0.03] xl:block" />
+          <div className="animate-float-slow absolute left-[14%] top-[18%] hidden h-14 w-14 rotate-12 bg-white/[0.03] lg:block" />
+          <div className="animate-float-slow absolute right-[18%] top-[28%] hidden h-20 w-20 -rotate-6 bg-white/[0.03] lg:block" style={{ animationDelay: '0.9s' }} />
+          <div className="animate-float-slow absolute bottom-[18%] left-[22%] hidden h-12 w-12 rotate-12 bg-white/[0.03] xl:block" style={{ animationDelay: '1.6s' }} />
         </div>
 
-        <div className="relative mx-auto max-w-[1320px] px-6 pb-20 pt-16 sm:pt-20 lg:pb-28 lg:pt-24">
-          <div className="mx-auto max-w-5xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-zinc-300">
+        <div className="relative mx-auto max-w-[1320px] px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20 lg:pb-28 lg:pt-24">
+          <div className="stagger-fade mx-auto max-w-5xl text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-zinc-300 sm:text-[0.72rem] sm:tracking-[0.24em]">
               Self-hosted deployment platform
             </span>
 
-            <h1 className="font-display mt-8 text-5xl font-semibold tracking-[-0.06em] text-white sm:text-6xl lg:text-[6.1rem] lg:leading-[0.92]">
+            <h1 className="font-display mt-6 text-4xl font-semibold leading-[0.95] tracking-[-0.06em] text-white sm:mt-8 sm:text-6xl lg:text-[6.1rem] lg:leading-[0.92]">
               <span className="block text-zinc-500">Deploy apps, databases,</span>
               <span className="relative block text-white">
                 and Docker Compose stacks
@@ -306,7 +306,7 @@ export default function HomePage() {
               <span className="block text-zinc-300">without platform sprawl</span>
             </h1>
 
-            <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg">
+            <p className="mx-auto mt-6 max-w-3xl text-sm leading-7 text-zinc-400 sm:mt-8 sm:text-lg sm:leading-8">
               Dokploy brings application deployments, Compose workloads,
               databases, domains, environment variables, logs, monitoring,
               and automated release triggers into one self-hosted surface.
@@ -319,7 +319,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={handleCopy}
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white transition hover:bg-white/[0.1]"
+                className="lift-hover inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white transition hover:bg-white/[0.1]"
               >
                 <CopyIcon className="h-4 w-4" />
                 <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -333,20 +333,20 @@ export default function HomePage() {
             <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
               <a
                 href="#features"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 sm:text-base"
+                className="lift-hover animate-sheen inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 sm:w-auto sm:text-base"
               >
                 <span>Explore Features</span>
               </a>
               <a
                 href="#workflow"
-                className="inline-flex items-center gap-2 rounded-full bg-[#6366f1] px-7 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(79,85,218,0.34)] transition hover:bg-[#7277ff] sm:text-base"
+                className="lift-hover animate-sheen inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#6366f1] px-7 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(79,85,218,0.34)] transition hover:bg-[#7277ff] sm:w-auto sm:text-base"
               >
                 <span>See the Workflow</span>
               </a>
             </div>
           </div>
 
-          <div className="mt-16 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+          <div className="stagger-fade mt-16 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
             <div className={`${panelClass} p-6 sm:p-7`}>
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
                 <div className="max-w-2xl">
@@ -436,9 +436,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto mt-8 grid max-w-[1320px] gap-4 px-6 md:grid-cols-2 xl:grid-cols-4">
+      <section className="stagger-fade mx-auto mt-8 grid max-w-[1320px] gap-4 px-4 sm:px-6 md:grid-cols-2 xl:grid-cols-4">
         {metrics.map((item) => (
-          <article key={item.title} className={`${panelClass} p-6`}>
+          <article key={item.title} className={`${panelClass} lift-hover p-6`}>
             <h2 className="font-display text-2xl font-semibold tracking-[-0.04em] text-white">
               {item.title}
             </h2>
@@ -449,7 +449,7 @@ export default function HomePage() {
         ))}
       </section>
 
-      <section className="mx-auto mt-8 max-w-[1320px] px-6">
+      <section className="mx-auto mt-8 max-w-[1320px] px-4 sm:px-6">
         <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
             <SectionIntro
@@ -482,11 +482,11 @@ export default function HomePage() {
               description="Dokploy supports common app databases directly, and it supports S3-compatible destinations for backup storage. If you need your own object store, MinIO can be deployed on Dokploy as well."
             />
 
-            <div className="mt-8 grid gap-4">
+            <div className="stagger-fade mt-8 grid gap-4">
               {dataAndStorage.map((group) => (
                 <article
                   key={group.title}
-                  className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
+                  className="lift-hover rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
                 >
                   <h3 className="font-display text-2xl font-semibold tracking-[-0.04em] text-white">
                     {group.title}
@@ -511,7 +511,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="features" className="mx-auto mt-8 max-w-[1320px] px-6">
+      <section id="features" className="mx-auto mt-8 max-w-[1320px] px-4 sm:px-6">
         <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
           <SectionIntro
             badge="Core Features"
@@ -519,11 +519,11 @@ export default function HomePage() {
             description="This version focuses on the product features people actually evaluate: deployment models, source options, domains, data services, automation, and visibility after the app goes live."
           />
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="stagger-fade mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {pillars.map((item) => (
               <article
                 key={item.title}
-                className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
+                className="lift-hover rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
               >
                 <span className="inline-flex rounded-full bg-[#6d73ff]/14 px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-[#d7daff]">
                   {item.label}
@@ -540,7 +540,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="workflow" className="mx-auto mt-8 max-w-[1320px] px-6">
+      <section id="workflow" className="mx-auto mt-8 max-w-[1320px] px-4 sm:px-6">
         <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
           <SectionIntro
             badge="Workflow"
@@ -549,11 +549,11 @@ export default function HomePage() {
             center
           />
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          <div className="stagger-fade mt-8 grid gap-4 lg:grid-cols-2">
             {workflow.map((item, index) => (
               <article
                 key={item.title}
-                className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
+                className="lift-hover rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
               >
                 <span className="font-display text-4xl font-semibold tracking-[-0.06em] text-white/14 sm:text-5xl">
                   {String(index + 1).padStart(2, '0')}
@@ -570,7 +570,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="use-cases" className="mx-auto mt-8 max-w-[1320px] px-6">
+      <section id="use-cases" className="mx-auto mt-8 max-w-[1320px] px-4 sm:px-6">
         <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
             <SectionIntro
@@ -579,11 +579,11 @@ export default function HomePage() {
               description="These are the kinds of projects the page now highlights most clearly for teams evaluating whether Dokploy fits their stack."
             />
 
-            <div className="mt-8 grid gap-4 md:grid-cols-2">
+            <div className="stagger-fade mt-8 grid gap-4 md:grid-cols-2">
               {useCases.map((item) => (
                 <article
                   key={item.title}
-                  className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
+                  className="lift-hover rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
                 >
                   <h3 className="font-display text-2xl font-semibold tracking-[-0.04em] text-white">
                     {item.title}
@@ -603,11 +603,11 @@ export default function HomePage() {
               description="The strongest arguments are now about capability, ownership, and day-two operations."
             />
 
-            <ul className="mt-8 grid gap-4">
+            <ul className="stagger-fade mt-8 grid gap-4">
               {platformWins.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-3 rounded-[22px] border border-white/10 bg-white/[0.03] px-4 py-4 text-sm leading-7 text-zinc-300 sm:text-base"
+                  className="lift-hover flex items-start gap-3 rounded-[22px] border border-white/10 bg-white/[0.03] px-4 py-4 text-sm leading-7 text-zinc-300 sm:text-base"
                 >
                   <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#6d73ff]/16 text-sm font-semibold text-[#d7daff]">
                     +
@@ -620,7 +620,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="best-shots" className="mx-auto mt-8 max-w-[1320px] px-6">
+      <section id="best-shots" className="mx-auto mt-8 max-w-[1320px] px-4 sm:px-6">
         <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
           <SectionIntro
             badge="Best Shots"
@@ -628,11 +628,11 @@ export default function HomePage() {
             description="This section focuses on the product angles that actually matter when someone is deciding whether Dokploy is serious enough for their stack."
           />
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          <div className="stagger-fade mt-8 grid gap-4 lg:grid-cols-2">
             {bestShots.map((item) => (
               <article
                 key={item.title}
-                className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
+                className="lift-hover rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
               >
                 <span className="inline-flex rounded-full bg-[#ffd84d] px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-black">
                   {item.badge}
@@ -649,17 +649,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="cta" className="mx-auto mt-8 max-w-[1320px] px-6">
-        <div className="rounded-[30px] border border-white/10 bg-[radial-gradient(circle_at_right_top,rgba(109,115,255,0.2),transparent_24%),linear-gradient(135deg,rgba(12,13,19,0.98),rgba(5,5,7,0.98))] px-6 py-8 shadow-[0_28px_90px_rgba(0,0,0,0.42)] sm:px-8 sm:py-10">
+      <section id="cta" className="mx-auto mt-8 max-w-[1320px] px-4 sm:px-6">
+        <div className="rounded-[30px] border border-white/10 bg-[radial-gradient(circle_at_right_top,rgba(109,115,255,0.2),transparent_24%),linear-gradient(135deg,rgba(12,13,19,0.98),rgba(5,5,7,0.98))] px-5 py-8 shadow-[0_28px_90px_rgba(0,0,0,0.42)] sm:px-8 sm:py-10">
           <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] xl:items-center">
             <div className="max-w-3xl">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-zinc-300">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-zinc-300 sm:text-[0.72rem] sm:tracking-[0.24em]">
                 Final section
               </span>
-              <h2 className="font-display mt-5 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
+              <h2 className="font-display mt-5 text-2xl font-semibold tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
                 The page now sells Dokploy as a serious deployment surface.
               </h2>
-              <p className="mt-4 text-base leading-8 text-zinc-400 sm:text-lg">
+              <p className="mt-4 text-sm leading-7 text-zinc-400 sm:text-lg sm:leading-8">
                 It is positioned around what Dokploy genuinely does well:
                 applications, Compose stacks, databases, automation, and
                 operations in one self-hosted platform.
@@ -669,13 +669,13 @@ export default function HomePage() {
             <div className="flex flex-col gap-4 sm:flex-row xl:justify-end">
               <a
                 href="#hero"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 sm:text-base"
+                className="lift-hover inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-zinc-200 sm:text-base"
               >
                 <span>Back to top</span>
               </a>
               <a
                 href="#best-shots"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#6366f1] px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(79,85,218,0.34)] transition hover:bg-[#7277ff] sm:text-base"
+                className="lift-hover animate-sheen inline-flex items-center justify-center gap-2 rounded-full bg-[#6366f1] px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(79,85,218,0.34)] transition hover:bg-[#7277ff] sm:text-base"
               >
                 <span>Review highlights</span>
               </a>

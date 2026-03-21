@@ -7,7 +7,7 @@ export default function TroubleshootingPage() {
   const panelClass =
     'rounded-[30px] border border-white/10 panel-dark shadow-[0_28px_90px_rgba(0,0,0,0.42)]'
   const navButtonClass = (isActive) =>
-    `whitespace-nowrap flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition ${
+    `whitespace-nowrap flex items-center gap-2 rounded-full px-3 py-2 text-xs font-medium transition sm:px-4 sm:py-2.5 sm:text-sm ${
       isActive
         ? 'bg-white text-black shadow-[0_12px_40px_rgba(255,255,255,0.12)]'
         : 'border border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
@@ -241,8 +241,8 @@ export default function TroubleshootingPage() {
       <div className="grid gap-6">
         {issues.map((issue) => (
           <div key={issue.issue} className={`${panelClass} overflow-hidden`}>
-            <div className="border-b border-white/10 bg-[linear-gradient(90deg,rgba(248,113,113,0.14),rgba(255,255,255,0.03))] px-6 py-4">
-              <h3 className="flex items-center gap-2 text-xl font-semibold text-white">
+            <div className="border-b border-white/10 bg-[linear-gradient(90deg,rgba(248,113,113,0.14),rgba(255,255,255,0.03))] px-4 py-4 sm:px-6">
+              <h3 className="flex flex-wrap items-center gap-2 text-lg font-semibold text-white sm:text-xl">
                 {issue.issue}
                 <span
                   className={`rounded-full border px-3 py-1 text-xs font-bold ${
@@ -258,7 +258,7 @@ export default function TroubleshootingPage() {
               </h3>
             </div>
 
-            <div className="space-y-4 px-6 py-4">
+            <div className="space-y-4 px-4 py-4 sm:px-6">
               <div>
                 <h4 className="mb-2 font-semibold text-zinc-100">Symptoms</h4>
                 <p className="text-zinc-400">{issue.symptoms}</p>
@@ -291,23 +291,23 @@ export default function TroubleshootingPage() {
   }
 
   return (
-    <div className="min-h-screen pb-16 text-zinc-100">
-      <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-12">
+    <div className="min-h-screen pb-12 text-zinc-100 sm:pb-16">
+      <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-10 sm:px-6 sm:py-12">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top,rgba(248,113,113,0.18),transparent_42%)]" />
         <div className="relative mx-auto max-w-7xl">
-          <h1 className="font-display mb-2 text-4xl font-semibold tracking-[-0.04em] text-white">
+          <h1 className="font-display mb-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
             Troubleshooting Guide
           </h1>
-          <p className="text-lg text-zinc-400">
+          <p className="text-base text-zinc-400 sm:text-lg">
             Solutions for common deployment, networking, database, and operational issues.
           </p>
         </div>
       </div>
 
       <div className="sticky top-0 z-40 border-b border-white/10 bg-black/75 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="overflow-x-auto">
-            <div className="flex gap-2 py-4">
+            <div className="flex gap-2 py-3 sm:py-4">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
@@ -323,7 +323,7 @@ export default function TroubleshootingPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-12">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
         {renderContent()}
       </div>
     </div>
