@@ -1,0 +1,93 @@
+@import 'tailwindcss';
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    color: #f5f7fb;
+    background:
+      radial-gradient(circle at 50% -10%, rgba(109, 115, 255, 0.16), transparent 28%),
+      radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.05), transparent 20%),
+      linear-gradient(180deg, #050507 0%, #06070b 50%, #040406 100%);
+    font-family: Aptos, 'Trebuchet MS', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  body::before {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 78px 78px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent 92%);
+    opacity: 0.36;
+  }
+
+  body::after {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(109, 115, 255, 0.12), transparent 30%),
+      radial-gradient(circle at 0% 50%, rgba(255, 255, 255, 0.03), transparent 24%),
+      radial-gradient(circle at 100% 60%, rgba(109, 115, 255, 0.08), transparent 18%);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: Bahnschrift, 'Arial Narrow', 'Franklin Gothic Medium', sans-serif;
+  }
+
+  .bg-grid-dokploy {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .panel-dark {
+    background:
+      linear-gradient(180deg, rgba(13, 14, 20, 0.92), rgba(8, 9, 13, 0.96)),
+      #090a0f;
+  }
+
+  .surface-dark {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(109, 115, 255, 0.08), transparent 24%),
+      linear-gradient(180deg, rgba(12, 13, 19, 0.96), rgba(7, 8, 12, 0.98)),
+      #090a0f;
+  }
+}
+
+@media (max-width: 760px) {
+  body::before {
+    background-size: 56px 56px;
+  }
+}
