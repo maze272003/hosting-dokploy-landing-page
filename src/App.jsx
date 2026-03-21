@@ -35,7 +35,7 @@ const pillars = [
     label: 'Application',
     title: 'Fast path for single-service apps',
     description:
-      'Dokploy applications can deploy from Git or Docker sources and support Docker, Nixpacks, Heroku Buildpacks, and Paketo Buildpacks for faster setup.',
+      'Dokploy applications can deploy from Git and use Railpack, Nixpacks, Dockerfile, Heroku buildpacks, or Paketo buildpacks depending on how much control you want.',
   },
   {
     label: 'Compose',
@@ -185,6 +185,50 @@ const bestShots = [
     title: 'It treats persistence as part of the platform, not an afterthought.',
     description:
       'Database backups and volume backups make Dokploy more compelling for real applications than a simple app-only launcher.',
+  },
+]
+
+const languageGroups = [
+  'Clojure',
+  'COBOL',
+  'Crystal',
+  'C# / .NET',
+  'Dart',
+  'Deno',
+  'Elixir',
+  'F#',
+  'Gleam',
+  'Go',
+  'Haskell',
+  'Java',
+  'JavaScript / TypeScript / Node.js',
+  'Lunatic',
+  'PHP',
+  'Python',
+  'Ruby',
+  'Rust',
+  'Scala',
+  'Scheme',
+  'Swift',
+  'Zig',
+  'Static sites',
+]
+
+const dataAndStorage = [
+  {
+    title: 'Built-in databases',
+    items: ['Postgres', 'MySQL', 'MariaDB', 'MongoDB', 'Redis'],
+    note: 'These are native Dokploy database types with logs, monitoring, and backup support.',
+  },
+  {
+    title: 'S3 destinations for backups',
+    items: ['AWS S3', 'Cloudflare R2', 'Google Cloud Storage', 'Backblaze B2'],
+    note: 'Dokploy uses these bucket destinations for database and volume backups.',
+  },
+  {
+    title: 'S3-compatible object storage you can host',
+    items: ['MinIO template'],
+    note: 'MinIO is available as a Dokploy template when you want your own S3-compatible object store.',
   },
 ]
 
@@ -601,6 +645,68 @@ function App() {
               </p>
             </article>
           ))}
+        </section>
+
+        <section className="mx-auto mt-8 max-w-[1320px] px-6">
+          <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+            <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
+              <SectionIntro
+                badge="Languages"
+                title="Dokploy can ship a wide range of language stacks."
+                description="These are the language targets currently documented through Dokploy build flows, especially Nixpacks and Railpack. If a project can be packaged with a Dockerfile, Dokploy can deploy that too."
+              />
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                {languageGroups.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-medium text-zinc-200"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <p className="mt-6 text-sm leading-7 text-zinc-400 sm:text-base">
+                TypeScript projects usually deploy through the Node.js path,
+                and Docker remains the catch-all option for custom runtimes.
+              </p>
+            </div>
+
+            <div className={`${panelClass} px-6 py-8 sm:px-8 sm:py-10`}>
+              <SectionIntro
+                badge="Data + Buckets"
+                title="Databases and S3-style storage are part of the story too."
+                description="Dokploy supports common app databases directly, and it supports S3-compatible destinations for backup storage. If you need your own object store, MinIO can be deployed on Dokploy as well."
+              />
+
+              <div className="mt-8 grid gap-4">
+                {dataAndStorage.map((group) => (
+                  <article
+                    key={group.title}
+                    className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6"
+                  >
+                    <h3 className="font-display text-2xl font-semibold tracking-[-0.04em] text-white">
+                      {group.title}
+                    </h3>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {group.items.map((item) => (
+                        <span
+                          key={item}
+                          className="rounded-full bg-[#6d73ff]/14 px-3 py-2 text-sm font-medium text-[#d7daff]"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="mt-4 text-sm leading-7 text-zinc-400 sm:text-base">
+                      {group.note}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="features" className="mx-auto mt-8 max-w-[1320px] px-6">
