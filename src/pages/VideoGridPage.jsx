@@ -8,37 +8,12 @@ export default function VideoGridPage() {
     },
     
     {
-      id: 5,
-      title: 'FREE Dokploy Self-Hosted - Cancel Vercel',
+      id: 2,
+      title: 'How to Deploy a Web App on Dokploy Using GitHub',
       description: 'Learn how to replace Vercel and Heroku with Dokploy for complete control over your deployments.',
-      url: 'https://www.youtube.com/embed/tYzMGcUty6s',
-    },
-    {
-      id: 6,
-      title: 'Dokploy vs Coolify - Which is Better?',
-      description: 'Comprehensive comparison between Dokploy and Coolify for self-hosted deployment platforms.',
-      url: 'https://www.youtube.com/embed/9cKsq5r1CpA',
-    },
-    {
-      id: 7,
-      title: 'Dokploy Database Management',
-      description: 'Learn how to manage PostgreSQL, MySQL, MongoDB, and Redis databases within Dokploy.',
-      url: 'https://www.youtube.com/embed/kffAkoSvzKU',
+      url: 'https://www.youtube.com/embed/j9r2mdzBZcQ?si=dkR5r5jCYZlFbJH7',
     },
     
-    
-    {
-      id: 11,
-      title: 'Deploying Node.js Apps with Dokploy',
-      description: 'Deploy Node.js and Express applications effortlessly using Dokploy\'s automatic buildpacks.',
-      url: 'https://www.youtube.com/embed/tYzMGcUty6s',
-    },
-    {
-      id: 12,
-      title: 'Advanced Dokploy Configuration',
-      description: 'Master advanced features including environment variables, volumes, and health checks in Dokploy.',
-      url: 'https://www.youtube.com/embed/9cKsq5r1CpA',
-    },
   ]
 
   return (
