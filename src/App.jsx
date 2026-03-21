@@ -1,57 +1,29 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom'
+import BoxIcon from './components/BoxIcon'
 import HomePage from './pages/HomePage'
 import VideoGridPage from './pages/VideoGridPage'
+import DocumentationPage from './pages/DocumentationPage'
+import GettingStartedPage from './pages/GettingStartedPage'
+import TroubleshootingPage from './pages/TroubleshootingPage'
+import BestPracticesPage from './pages/BestPracticesPage'
+import APIReferencePage from './pages/APIReferencePage'
 
 const navLinks = [
-  { label: 'Features', href: '#features', dropdown: true },
-  { label: 'Workflow', href: '#workflow', dropdown: true },
-  { label: 'Best Shots', href: '#best-shots', dropdown: true },
-  { label: 'Use Cases', href: '#use-cases', dropdown: true },
-  { label: 'Video Tutorials', href: '/videos', dropdown: false },
+  { label: 'Home', href: '/', dropdown: false },
+  { label: 'Docs', href: '/docs', dropdown: false },
+  { label: 'Getting Started', href: '/getting-started', dropdown: false },
+  { label: 'Best Practices', href: '/best-practices', dropdown: false },
+  { label: 'Troubleshooting', href: '/troubleshooting', dropdown: false },
+  { label: 'API Reference', href: '/api', dropdown: false },
+  { label: 'Videos', href: '/videos', dropdown: false },
 ]
 
 function ChevronDown({ className = 'h-3 w-3' }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      viewBox="0 0 12 12"
-    >
-      <path
-        d="M3 4.5L6 7.5L9 4.5"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
-    </svg>
-  )
+  return <BoxIcon iconClass="bx bx-chevron-down" className={`text-[14px] ${className}`} />
 }
 
 function ArrowRight({ className = 'h-4 w-4' }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      viewBox="0 0 16 16"
-    >
-      <path
-        d="M3.5 8H12.5"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M8.5 4L12.5 8L8.5 12"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
-    </svg>
-  )
+  return <BoxIcon iconClass="bx bx-right-arrow-alt" className={`text-[18px] ${className}`} />
 }
 
 function DokployGlyph({ className = 'h-10 w-10' }) {
@@ -214,6 +186,11 @@ function AppContent() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/docs" element={<DocumentationPage />} />
+        <Route path="/getting-started" element={<GettingStartedPage />} />
+        <Route path="/best-practices" element={<BestPracticesPage />} />
+        <Route path="/troubleshooting" element={<TroubleshootingPage />} />
+        <Route path="/api" element={<APIReferencePage />} />
         <Route path="/videos" element={<VideoGridPage />} />
       </Routes>
       <footer className="mx-auto flex max-w-[1320px] flex-col gap-3 px-6 pb-8 pt-6 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between">

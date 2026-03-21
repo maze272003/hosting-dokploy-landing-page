@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import BoxIcon from '../components/BoxIcon'
 
 const metrics = [
   {
@@ -229,30 +230,7 @@ const panelClass =
   'rounded-[30px] border border-white/10 panel-dark shadow-[0_28px_90px_rgba(0,0,0,0.42)]'
 
 function CopyIcon({ className = 'h-4 w-4' }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      viewBox="0 0 16 16"
-    >
-      <rect
-        height="8.5"
-        rx="1.5"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        width="8.5"
-        x="5.25"
-        y="4.25"
-      />
-      <path
-        d="M10.75 4V3.25C10.75 2.42 10.08 1.75 9.25 1.75H3.25C2.42 1.75 1.75 2.42 1.75 3.25V9.25C1.75 10.08 2.42 10.75 3.25 10.75H4"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.4"
-      />
-    </svg>
-  )
+  return <BoxIcon iconClass="bx bx-copy" className={`text-[18px] ${className}`} />
 }
 
 function SectionIntro({ badge, title, description, center = false }) {
