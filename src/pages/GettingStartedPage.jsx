@@ -9,6 +9,49 @@ const sections = [
   { id: 'common-fixes', label: 'Common Fixes', iconClass: 'bx bx-wrench' },
 ]
 
+const sectionSpotlights = {
+  'quick-start': {
+    eyebrow: 'Fast Track',
+    title: 'Go from server prep to first healthy deploy in five moves.',
+    summary: 'This path keeps the first release narrow, observable, and easy to recover when something breaks.',
+    metrics: [
+      { value: '5', label: 'Core moves' },
+      { value: '1', label: 'Small first release' },
+      { value: '24h', label: 'Ideal first-launch window' },
+    ],
+  },
+  'deployment-paths': {
+    eyebrow: 'Choose Your Lane',
+    title: 'Match the release method to the project instead of forcing one workflow.',
+    summary: 'Git is fastest for teams shipping constantly, while Docker and Compose become stronger as the runtime gets more defined.',
+    metrics: [
+      { value: '4', label: 'Input paths' },
+      { value: 'Git', label: 'Best repeatability' },
+      { value: 'Compose', label: 'Best multi-service fit' },
+    ],
+  },
+  checklist: {
+    eyebrow: 'Preflight',
+    title: 'Handle the boring infrastructure details before launch day handles you.',
+    summary: 'Most failed first releases come from DNS, ports, missing secrets, or no rollback path, not application logic.',
+    metrics: [
+      { value: '6', label: 'Readiness checks' },
+      { value: 'DNS', label: 'Critical dependency' },
+      { value: 'Logs', label: 'Required visibility' },
+    ],
+  },
+  'common-fixes': {
+    eyebrow: 'Recovery Patterns',
+    title: 'Find the failure mode, then take the smallest fix with the clearest feedback loop.',
+    summary: 'These are the failure classes that usually appear first: builds, startup commands, domains, and health checks.',
+    metrics: [
+      { value: '4', label: 'Frequent failure modes' },
+      { value: 'Logs', label: 'First place to inspect' },
+      { value: 'Retry', label: 'Only after root cause' },
+    ],
+  },
+}
+
 const quickStartCards = [
   {
     title: 'Prepare the host',
@@ -140,18 +183,19 @@ const commonFixes = [
 
 export default function GettingStartedPage() {
   const [activeSection, setActiveSection] = useState('quick-start')
+  const activeSpotlight = sectionSpotlights[activeSection]
 
   const panelClass =
-    'rounded-[30px] border border-white/10 panel-dark shadow-[0_28px_90px_rgba(0,0,0,0.42)]'
+    'glass-shell rounded-[32px]'
   const cardClass =
-    'rounded-[24px] border border-white/10 bg-white/[0.03] shadow-[0_20px_70px_rgba(0,0,0,0.35)]'
+    'glass-shell rounded-[28px]'
   const codeBlockClass =
-    'overflow-x-auto rounded-[20px] border border-white/10 bg-black/60 p-4 font-mono text-sm text-emerald-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
+    'overflow-x-auto rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(5,7,12,0.96),rgba(11,12,19,0.88))] p-4 font-mono text-sm text-emerald-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]'
   const navButtonClass = (isActive) =>
     `whitespace-nowrap flex items-center gap-2 rounded-full px-3 py-2 text-xs font-medium transition sm:px-4 sm:py-2.5 sm:text-sm ${
       isActive
-        ? 'bg-white text-black shadow-[0_12px_40px_rgba(255,255,255,0.12)]'
-        : 'border border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
+        ? 'bg-[linear-gradient(135deg,#ffffff,#d7dbff)] text-black shadow-[0_18px_44px_rgba(255,255,255,0.16)]'
+        : 'border border-white/10 bg-white/[0.03] text-zinc-300 hover:border-[#6d73ff]/25 hover:bg-white/[0.08] hover:text-white'
     }`
 
   const renderContent = () => {
@@ -176,9 +220,9 @@ export default function GettingStartedPage() {
               </div>
             </section>
 
-            <section className="grid gap-6 md:grid-cols-2">
+            <section className="stagger-fade grid gap-6 md:grid-cols-2">
               {quickStartCards.map((card, index) => (
-                <article key={card.title} className={`${cardClass} p-6`}>
+                <article key={card.title} className={`lift-hover ${cardClass} p-6`}>
                   <div className="mb-4 flex items-center gap-3">
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#6d73ff]/14 text-[#d7daff]">
                       <BoxIcon iconClass={card.iconClass} className="text-2xl" />
@@ -233,9 +277,9 @@ export default function GettingStartedPage() {
               </p>
             </section>
 
-            <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <section className="stagger-fade grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {launchChecklist.map((item) => (
-                <article key={item.title} className={`${cardClass} p-6`}>
+                <article key={item.title} className={`lift-hover ${cardClass} p-6`}>
                   <BoxIcon
                     iconClass={item.iconClass}
                     className="mb-4 block text-3xl text-[#6d73ff]"
@@ -250,9 +294,9 @@ export default function GettingStartedPage() {
 
       case 'common-fixes':
         return (
-          <div className="grid gap-6">
+          <div className="stagger-fade grid gap-6">
             {commonFixes.map((item) => (
-              <article key={item.title} className={`${panelClass} overflow-hidden`}>
+              <article key={item.title} className={`lift-hover ${panelClass} overflow-hidden`}>
                 <div className="border-b border-white/10 bg-[linear-gradient(90deg,rgba(109,115,255,0.12),rgba(255,255,255,0.03))] px-4 py-4 sm:px-6">
                   <h3 className="flex items-start gap-3 text-lg font-semibold text-white sm:items-center sm:text-xl">
                     <BoxIcon iconClass={item.iconClass} className="text-2xl text-[#d7daff]" />
@@ -282,26 +326,60 @@ export default function GettingStartedPage() {
   return (
     <div className="min-h-screen pb-12 text-zinc-100 sm:pb-16">
       <div className="relative overflow-hidden border-b border-white/10 surface-dark px-4 py-10 sm:px-6 sm:py-12">
+        <div className="hero-orbit right-[-110px] top-[-90px] hidden lg:block" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top,rgba(255,216,77,0.16),transparent_42%)]" />
-        <div className="relative mx-auto max-w-7xl">
-          <h1 className="font-display mb-2 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-            Getting Started
-          </h1>
-          <p className="text-base text-zinc-400 sm:text-lg">
-            Set up Dokploy, choose the right deployment path, and avoid the first-release mistakes that waste time.
-          </p>
+        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+          <div className="stagger-fade max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-zinc-300">
+              Deployment Playbook
+            </span>
+            <h1 className="font-display mb-3 mt-5 text-4xl font-semibold tracking-[-0.05em] text-white sm:text-5xl">
+              <span className="text-lustre">Getting Started</span>
+            </h1>
+            <p className="max-w-2xl text-base leading-8 text-zinc-400 sm:text-lg">
+              Set up Dokploy, choose the right deployment path, and avoid the first-release mistakes that waste time.
+              The active module on the right updates as you move through the guide.
+            </p>
+          </div>
+
+          <aside className="glass-shell rounded-[32px] p-6 sm:p-7">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#ffd84d]">
+              {activeSpotlight.eyebrow}
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white">
+              {activeSpotlight.title}
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-zinc-400 sm:text-base">
+              {activeSpotlight.summary}
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              {activeSpotlight.metrics.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-[22px] border border-white/10 bg-white/[0.03] px-4 py-4"
+                >
+                  <p className="font-display text-2xl font-semibold tracking-[-0.05em] text-white">
+                    {item.value}
+                  </p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
+                    {item.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </aside>
         </div>
       </div>
 
-      <div className="sticky top-0 z-40 border-b border-white/10 bg-black/75 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <div className="overflow-x-auto">
-            <div className="flex gap-2 py-3 sm:py-4">
+      <div className="sticky top-0 z-40 bg-black/24 px-4 py-3 backdrop-blur-xl sm:px-6">
+        <div className="mx-auto max-w-7xl">
+          <div className="nav-dock overflow-x-auto rounded-[28px] px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex min-w-max gap-2 py-2">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={navButtonClass(activeSection === section.id)}
+                  className={`lift-hover ${navButtonClass(activeSection === section.id)}`}
                 >
                   <BoxIcon iconClass={section.iconClass} className="text-lg" />
                   <span className="hidden sm:inline">{section.label}</span>

@@ -98,6 +98,8 @@ function Header() {
   const location = useLocation()
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
 
+  const isActiveRoute = (href) => href.startsWith('/') && location.pathname === href
+
   useEffect(() => {
     if (!isMobileNavOpen) {
       return undefined
@@ -119,64 +121,98 @@ function Header() {
     }
   }, [isMobileNavOpen])
 
-  const getNavClassName = (href) => {
-    const isActive = href.startsWith('/') && location.pathname === href
+  const getDesktopNavLinkClassName = (href) => {
+    const isActive = isActiveRoute(href)
 
     return isActive
-      ? 'text-white'
-      : 'text-zinc-200 transition hover:text-white'
+      ? 'group relative inline-flex h-12 items-center px-1 text-[0.95rem] font-medium tracking-[0.02em] text-white'
+      : 'group relative inline-flex h-12 items-center px-1 text-[0.95rem] font-medium tracking-[0.02em] text-zinc-400 transition-colors duration-200 hover:text-white'
+  }
+
+  const getDesktopNavIndicatorClassName = (href) => {
+    const isActive = isActiveRoute(href)
+
+    return isActive
+      ? 'absolute inset-x-1 bottom-[0.15rem] h-[2px] rounded-full bg-[linear-gradient(90deg,rgba(255,216,77,0.98),rgba(255,255,255,0.92))]'
+      : 'absolute inset-x-3 bottom-[0.15rem] h-[2px] origin-center scale-x-0 rounded-full bg-[linear-gradient(90deg,rgba(255,216,77,0.82),rgba(255,255,255,0.72))] opacity-0 transition duration-200 group-hover:scale-x-100 group-hover:opacity-100'
   }
 
   return (
     <>
-      <header className="sticky top-0 z-50 isolate border-b border-white/10 bg-black/85 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[1320px] items-center gap-3 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
+      <header className="sticky top-0 z-50 isolate px-2 pt-2 sm:px-4 sm:pt-4">
+        <div className="glass-shell mx-auto flex max-w-[1320px] items-center gap-3 rounded-[30px] px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
           <Link
             to="/"
             aria-label="Dokploy home"
-            className="shrink-0 text-white transition hover:opacity-80"
+            className="shrink-0 text-white transition hover:opacity-90"
           >
-            <DokployGlyph className="h-10 w-10 animate-float-slow sm:h-11 sm:w-11" />
+            <div className="flex items-center gap-3">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-[20px] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                <DokployGlyph className="h-8 w-8 animate-float-slow sm:h-9 sm:w-9" />
+              </span>
+              <div className="hidden sm:block">
+                <p className="text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-zinc-500">
+                  Deploy Command
+                </p>
+                <p className="font-display text-lg font-semibold tracking-[-0.04em] text-white">
+                  Dokploy
+                </p>
+              </div>
+            </div>
           </Link>
 
-          <nav
-            aria-label="Primary navigation"
-            className="hidden items-center gap-8 text-[15px] font-medium lg:flex"
-          >
-            {navLinks.map((item) => (
-              item.href.startsWith('/') ? (
-                <Link
-                  key={item.label}
-                  to={item.href}
-                  className={`inline-flex items-center gap-1.5 ${getNavClassName(item.href)}`}
-                >
-                  <span>{item.label}</span>
-                  {item.dropdown ? <ChevronDown /> : null}
-                </Link>
-              ) : (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className={`inline-flex items-center gap-1.5 ${getNavClassName(item.href)}`}
-                >
-                  <span>{item.label}</span>
-                  {item.dropdown ? <ChevronDown /> : null}
-                </a>
-              )
-            ))}
-          </nav>
+          <div className="ml-8 hidden flex-1 items-center justify-center lg:flex">
+            <nav
+              aria-label="Primary navigation"
+              className="flex items-center gap-5 xl:gap-7"
+            >
+              {navLinks.map((item) => (
+                item.href.startsWith('/') ? (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className={getDesktopNavLinkClassName(item.href)}
+                  >
+                    <span className="flex items-center gap-1.5 leading-none">
+                      <span>{item.label}</span>
+                      {item.dropdown ? <ChevronDown className="text-[13px] text-current" /> : null}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={getDesktopNavIndicatorClassName(item.href)}
+                    />
+                  </Link>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={getDesktopNavLinkClassName(item.href)}
+                  >
+                    <span className="flex items-center gap-1.5 leading-none">
+                      <span>{item.label}</span>
+                      {item.dropdown ? <ChevronDown className="text-[13px] text-current" /> : null}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={getDesktopNavIndicatorClassName(item.href)}
+                    />
+                  </a>
+                )
+              ))}
+            </nav>
+          </div>
 
           <div className="ml-auto hidden items-center gap-3 xl:flex">
             <a
               href="#best-shots"
-              className="inline-flex items-center gap-2 rounded-full bg-[#ffd84d] px-4 py-2 text-sm font-semibold text-black transition hover:brightness-95 lift-hover animate-sheen"
+              className="lift-hover animate-sheen inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#ffd84d,#ffe79d)] px-4 py-2 text-sm font-semibold text-black transition hover:brightness-95"
             >
               <span>Best Shots</span>
             </a>
-            <span className="text-lg text-zinc-500">X</span>
+            <span className="text-lg text-zinc-700">/</span>
             <a
               href="#use-cases"
-              className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-sm font-medium text-white transition hover:bg-white/[0.08] lift-hover"
+              className="lift-hover inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-sm font-medium text-white transition hover:bg-white/[0.08]"
             >
               Use Cases
             </a>
@@ -184,7 +220,7 @@ function Header() {
               href="https://dokploy.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-zinc-200 lift-hover animate-sheen"
+              className="lift-hover animate-sheen inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-zinc-200"
             >
               <span>Visit Dokploy</span>
               <ArrowRight className="h-4 w-4" />
@@ -220,7 +256,7 @@ function Header() {
 
         <aside
           id="mobile-sidebar"
-          className={`absolute right-0 top-0 flex h-full w-[min(88vw,360px)] flex-col border-l border-white/10 bg-[linear-gradient(180deg,rgba(12,13,19,0.98),rgba(6,7,11,0.98))] p-5 shadow-[-20px_0_70px_rgba(0,0,0,0.45)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`glass-shell absolute right-0 top-0 flex h-full w-[min(88vw,360px)] flex-col rounded-l-[32px] border-l border-white/10 p-5 shadow-[-20px_0_70px_rgba(0,0,0,0.45)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             isMobileNavOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
@@ -253,7 +289,7 @@ function Header() {
             className="stagger-fade mt-8 flex flex-col gap-3"
           >
             {navLinks.map((item) => {
-              const isActive = item.href.startsWith('/') && location.pathname === item.href
+              const isActive = isActiveRoute(item.href)
               const itemClassName = isActive
                 ? 'border-white/0 bg-white text-black shadow-[0_16px_40px_rgba(255,255,255,0.14)]'
                 : 'border-white/10 bg-white/[0.04] text-zinc-200 hover:bg-white/[0.08]'

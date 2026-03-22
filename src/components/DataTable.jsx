@@ -39,12 +39,14 @@ export default function DataTable({
 
   return (
     <>
-      <div className="animate-rise mb-8 overflow-hidden rounded-[30px] border border-white/10 panel-dark shadow-[0_28px_90px_rgba(0,0,0,0.42)]">
-        <div className="border-b border-white/10 bg-white/[0.03] px-4 py-4 sm:px-6 sm:py-5">
+      <div className="glass-shell animate-rise mb-8 overflow-hidden rounded-[32px]">
+        <div className="border-b border-white/10 bg-[linear-gradient(90deg,rgba(109,115,255,0.12),rgba(255,255,255,0.02))] px-4 py-4 sm:px-6 sm:py-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">
               {iconClass ? (
-                <BoxIcon iconClass={iconClass} className="text-2xl text-[#6d73ff]" />
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#6d73ff]/14 text-[#d7daff]">
+                  <BoxIcon iconClass={iconClass} className="text-2xl text-[#d7daff]" />
+                </span>
               ) : icon ? (
                 <span className="text-2xl">{icon}</span>
               ) : null}
